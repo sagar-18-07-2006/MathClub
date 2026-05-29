@@ -126,3 +126,49 @@ export const members = [
 
 export const getTeamBySlug = (slug) => teamOptions.find((team) => team.id === slug)
 export const getMembersByTeam = (slug) => members.filter((member) => member.team === slug)
+export const developers = [
+  {
+    id: 1,
+    name: 'Sagar Maheshwari',
+    role: 'Lead Developer',
+    photo: '/assets/developers/sagar.jpg',
+    linkedin: 'https://www.linkedin.com/in/comedyfaceless',
+    github: 'https://github.com/comedyfaceless',
+    email: 'comedyfaceless@gmail.com',
+    contribution:
+      'Architecture, UI system, routing, page structure, deployment fixes, and complete frontend implementation.',
+  },
+  {
+    id: 2,
+    name: 'Developer 2',
+    role: 'Frontend Contributor',
+    photo: '/assets/developers/developer-2.jpg',
+    linkedin: 'https://www.linkedin.com/in/developer-2',
+    github: 'https://github.com/developer-2',
+    email: 'developer2@gmail.com',
+    contribution:
+      'Reusable components, content sections, responsive cards, and layout testing.',
+  },
+  {
+    id: 3,
+    name: 'Developer 3',
+    role: 'UI Contributor',
+    photo: '/assets/developers/developer-3.jpg',
+    linkedin: 'https://www.linkedin.com/in/developer-3',
+    github: 'https://github.com/developer-3',
+    email: 'developer3@gmail.com',
+    contribution:
+      'Visual polish, cards, layout details, spacing, typography, and asset organization.',
+  },
+  {
+    id: 4,
+    name: 'Developer 4',
+    role: 'Content Contributor',
+    photo: '/assets/developers/developer-4.jpg',
+    linkedin: 'https://www.linkedin.com/in/developer-4',
+    github: 'https://github.com/developer-4',
+    email: 'developer4@gmail.com',
+    contribution:
+      'Club content, event information, page data management, and responsiveness testing.',
+  },
+]
