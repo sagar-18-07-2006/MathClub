@@ -15,8 +15,8 @@ export const completedEvents = [
 ]
 
 export const upcomingEvents = [
-  { id: 6, title: 'Technical Session on Problem Solving', date: '21.03.2026', description: 'A structured technical session focused on proof techniques, problem decomposition, and contest strategy. Perfect for those aiming for high-rank competitive math performance.', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC3R4GAxZswVsN3R28xOgxgGxkYlXa2_RV742gCFNZeCRIntJalsLnOpH_zYISASeb9lNIiQGgheHV6-Dn_84K5BTwqeTbmgPs5VrKSPVj7pUFHL2I2LwULC8YEu8K2nduxcDjTltsL1aW7Hl9c8SwW53IZ_P-TF8EE50yKIJkI7bW48VBO-Jz0y7ZXSflceMgCK0FSdUCjbTSD6rEAxMxXj7AYrriwhyvpVquTgTiaXyWdaM7-suQOxmKglmDOq_zbyIR1j051oYsX', tag: 'TECHNICAL SESSION', extraTags: ['FOR NERDS'] },
-  { id: 7, title: 'Mathematics Day Celebration', date: '14.03.2026', description: 'A campus celebration dedicated to mathematics through games, talks, quizzes, and student showcases. Experience the fun side of the most abstract science.', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuALlbAalEjG766czlIslXel5IMmQelZRcxs_CoMM3jfmvFfd2epErohxhYz5E_mBJn2Z_x42zUTXve5jMysPyvq4pVwSIRXNcN3ct1grigvy7wHpmuI10DZNhFvbv4cT5QIyZldFcx1dl64llDHNcmBKGMj-KqSxpJm7U8tfGOFvJjAoNwr4YFloVNngNP-awTK6iGiKVD1bg-mAFdHzqmUTxGknz0GCJIXOhHFI3x2_O1evjAtVnP5A_MMO6nOAZJdzBjMviPFF6Xc', tag: 'MATH DAY', extraTags: ['BRAIN-ROTATING', 'FOR NERDS'] },
+  { id: 6, title: 'Technical Session on Problem Solving', date: '21.03.2026', description: 'A structured technical session focused on proof techniques, problem decomposition, and contest strategy. Perfect for those aiming for high-rank competitive math performance.', image: '/assets/events/coming_soon.png', tag: 'TECHNICAL SESSION', extraTags: ['FOR NERDS'] },
+  { id: 7, title: 'Mathematics Day Celebration', date: '14.03.2026', description: 'A campus celebration dedicated to mathematics through games, talks, quizzes, and student showcases. Experience the fun side of the most abstract science.', image: '/assets/events/coming_soon.png', tag: 'MATH DAY', extraTags: ['BRAIN-ROTATING', 'FOR NERDS'] },
 ]
 
 export const teamMembers = [
