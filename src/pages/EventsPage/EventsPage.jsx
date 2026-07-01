@@ -1,12 +1,22 @@
 import React, { useRef, useEffect } from 'react'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { completedEvents, upcomingEvents } from '../../data/siteData.js'
 import './EventsPage.css'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function EventsPage() {
   const trackRef = useRef(null)
   const marqueeTweenRef = useRef(null)
   const isHoveredRef = useRef(false)
+  
+  const loaderOverlayRef = useRef(null)
+  const loaderTextRef = useRef(null)
+  const contentRef = useRef(null)
+  const eyebrowRef = useRef(null)
+
+
 
   useEffect(() => {
     if (trackRef.current) {
@@ -36,6 +46,101 @@ export default function EventsPage() {
       }
     };
   }, [completedEvents]);
+
+  useEffect(() => {
+    // Disable body scrolling during the intro animation
+    document.body.style.overflow = 'hidden';
+
+    let ctx = gsap.context(() => {
+      const setupAnimation = () => {
+        if (!loaderTextRef.current || !eyebrowRef.current || !loaderOverlayRef.current) return;
+
+        // Force scroll to top on load to get correct bounding boxes
+        window.scrollTo(0, 0);
+
+        const loaderRect = loaderTextRef.current.getBoundingClientRect();
+        const eyebrowRect = eyebrowRef.current.getBoundingClientRect();
+
+        // Center position in viewport initially
+        const startX = (window.innerWidth - loaderRect.width) / 2;
+        const startY = (window.innerHeight - loaderRect.height) / 2;
+
+        // Target position (eyebrow's natural position in the viewport at scroll = 0)
+        const targetX = eyebrowRect.left;
+        const targetY = eyebrowRect.top;
+
+        // Scale ratio to match target width
+        const scaleRatio = eyebrowRect.width / loaderRect.width;
+
+        // Set initial positions
+        gsap.set(loaderTextRef.current, {
+          position: "fixed",
+          left: 0,
+          top: 0,
+          x: startX,
+          y: startY,
+          scale: 1,
+          transformOrigin: "left top",
+          opacity: 0,
+          zIndex: 100000
+        });
+
+        gsap.set(eyebrowRef.current, { opacity: 0 });
+
+        // Build the autoplay timeline
+        const tl = gsap.timeline({
+          onComplete: () => {
+            // Enable scrolling and clean up elements
+            document.body.style.overflow = '';
+            gsap.set(eyebrowRef.current, { opacity: 1 });
+            gsap.set(loaderTextRef.current, { opacity: 0 });
+            if (loaderOverlayRef.current) {
+              loaderOverlayRef.current.style.display = 'none';
+            }
+          }
+        });
+
+        // 1. Fade in the massive text
+        tl.to(loaderTextRef.current, {
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out"
+        });
+
+        // 2. Pause briefly
+        tl.to({}, { duration: 0.4 });
+
+        // 3. Settle loader text into eyebrow position & fade overlay
+        tl.to(loaderTextRef.current, {
+          x: targetX,
+          y: targetY,
+          scale: scaleRatio,
+          duration: 1.2,
+          ease: "power2.inOut"
+        }, "move");
+
+        tl.to(loaderOverlayRef.current, {
+          opacity: 0,
+          duration: 1.2,
+          ease: "power2.inOut"
+        }, "move");
+      };
+
+      // Wait for custom fonts to load so text bounding boxes are measured correctly
+      if (document.fonts) {
+        document.fonts.ready.then(setupAnimation);
+      } else {
+        setupAnimation();
+      }
+    });
+
+    return () => {
+      document.body.style.overflow = '';
+      ctx.revert();
+    };
+  }, []);
+
+
 
   const slideMarquee = (direction) => {
     if (marqueeTweenRef.current && trackRef.current) {
@@ -87,12 +192,18 @@ export default function EventsPage() {
 
   return (
     <div className="events-page-root">
-      <main className="relative min-h-screen content-overlay">
+      {/* Launch Animation Loader */}
+      <div className="events-loader-overlay" ref={loaderOverlayRef} />
+      <span className="events-loader-text" ref={loaderTextRef}>EVENTS</span>
+
+
+
+      <main className="relative min-h-screen content-overlay" ref={contentRef}>
         
         {/* Hero Section */}
         <section className="hero-section">
           <div className="hero-eyebrow-container">
-            <span className="font-label-mono hero-eyebrow text-label-mono">Events</span>
+            <span className="font-label-mono hero-eyebrow text-label-mono" ref={eyebrowRef}>Events</span>
           </div>
           <h1 className="font-display-lg hero-title">
             Sessions, Celebrations and Mathematical Gatherings
