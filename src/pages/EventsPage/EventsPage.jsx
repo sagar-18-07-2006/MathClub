@@ -61,13 +61,13 @@ export default function EventsPage() {
         const loaderRect = loaderTextRef.current.getBoundingClientRect();
         const eyebrowRect = eyebrowRef.current.getBoundingClientRect();
 
+        // Calculate document-relative coordinates (which will be the viewport coordinates at scroll = 0)
+        const targetX = eyebrowRect.left + window.scrollX;
+        const targetY = eyebrowRect.top + window.scrollY;
+
         // Center position in viewport initially
         const startX = (window.innerWidth - loaderRect.width) / 2;
         const startY = (window.innerHeight - loaderRect.height) / 2;
-
-        // Target position (eyebrow's natural position in the viewport at scroll = 0)
-        const targetX = eyebrowRect.left;
-        const targetY = eyebrowRect.top;
 
         // Scale ratio to match target width
         const scaleRatio = eyebrowRect.width / loaderRect.width;
@@ -115,6 +115,7 @@ export default function EventsPage() {
           x: targetX,
           y: targetY,
           scale: scaleRatio,
+          color: "#f97316", // Transition color to orange matching target eyebrow style!
           duration: 1.2,
           ease: "power2.inOut"
         }, "move");

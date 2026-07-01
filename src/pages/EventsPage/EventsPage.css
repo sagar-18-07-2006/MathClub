@@ -713,12 +713,12 @@
 }
 
 .events-page-root .events-loader-text {
-  font-family: 'Archivo Narrow', sans-serif;
-  font-size: clamp(4rem, 16vw, 12rem);
-  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(3rem, 12vw, 8rem);
+  font-weight: 600;
   text-transform: uppercase;
   color: #ffffff;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
   line-height: 1;
   text-align: center;
   display: inline-block;
