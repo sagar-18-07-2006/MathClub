@@ -373,7 +373,6 @@ export default function EventsPage() {
               {/* Completed Slider Container - Autoscrolls with GSAP, pauses on hover */}
               <div 
                 className="slider-container" 
-                style={{ overflow: 'hidden' }}
                 onMouseEnter={() => {
                   isHoveredRef.current = true;
                   marqueeTweenRef.current?.pause();
