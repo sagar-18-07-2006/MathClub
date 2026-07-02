@@ -37,6 +37,7 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment
+        if: github.event.pull_request.head.repo.full_name == github.repository
         run: |
           vercel pull \
             --yes \
@@ -44,17 +45,20 @@ jobs:
             --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Build Project
+        if: github.event.pull_request.head.repo.full_name == github.repository
         run: |
           vercel build \
             --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Preview
+        if: github.event.pull_request.head.repo.full_name == github.repository
         id: deploy
         run: |
           url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
           echo "preview_url=$url" >> "$GITHUB_OUTPUT"
 
       - name: Update PR Comment
+        if: github.event.pull_request.head.repo.full_name == github.repository
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: vercel-preview
@@ -69,3 +73,13 @@ jobs:
             ### Build Status
             - ✅ Build completed successfully
             - 🔄 This comment updates automatically whenever new commits are pushed.
+
+      - name: Comment on Fork PR
+        if: github.event.pull_request.head.repo.full_name != github.repository
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: vercel-preview
+          message: |
+            ## ℹ️ Fork PR Notice
+
+            This is a pull request from a forked repository. Vercel preview deployments are skipped for security reasons.
