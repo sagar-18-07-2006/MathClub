@@ -19,15 +19,6 @@ export default function EventsPage() {
 
 
   useEffect(() => {
-    // Only run marquee autoscroll on desktop / non-touch screens
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (isTouchDevice || window.innerWidth < 768) {
-      if (trackRef.current) {
-        gsap.set(trackRef.current, { clearProps: "x" });
-      }
-      return;
-    }
-
     let marqueeTween = null;
 
     const setupMarquee = () => {
@@ -67,14 +58,7 @@ export default function EventsPage() {
 
     // Recreate on window resize
     const handleResize = () => {
-      if (window.innerWidth < 768) {
-        if (marqueeTween) marqueeTween.kill();
-        if (trackRef.current) {
-          gsap.set(trackRef.current, { clearProps: "x" });
-        }
-      } else {
-        setupMarquee();
-      }
+      setupMarquee();
     };
     window.addEventListener('resize', handleResize);
 

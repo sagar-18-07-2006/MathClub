@@ -535,16 +535,8 @@
 
 .events-page-root .slider-container {
   display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
   padding: 20px 10px 40px 10px;
-}
-
-@media (min-width: 768px) {
-  .events-page-root .slider-container {
-    overflow: hidden;
-  }
 }
 
 .events-page-root .slider-track {
