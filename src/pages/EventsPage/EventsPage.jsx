@@ -19,9 +19,28 @@ export default function EventsPage() {
 
 
   useEffect(() => {
-    if (trackRef.current) {
-      // Calculate loop distance which is half of the track's scrollWidth
-      // (due to duplication of the completed events list).
+    // Only run marquee autoscroll on desktop / non-touch screens
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice || window.innerWidth < 768) {
+      if (trackRef.current) {
+        gsap.set(trackRef.current, { clearProps: "x" });
+      }
+      return;
+    }
+
+    let marqueeTween = null;
+
+    const setupMarquee = () => {
+      if (!trackRef.current) return;
+
+      // Kill previous tween if it exists
+      if (marqueeTween) {
+        marqueeTween.kill();
+      }
+
+      // Reset track position to calculate clean scrollWidth
+      gsap.set(trackRef.current, { x: 0 });
+
       const totalWidth = trackRef.current.scrollWidth;
       const loopDistance = (totalWidth + 30) / 2; // scrollWidth plus half gap
 
@@ -29,20 +48,41 @@ export default function EventsPage() {
       const duration = loopDistance / speed;
 
       // Set up the GSAP autoscrolling marquee tween
-      marqueeTweenRef.current = gsap.fromTo(trackRef.current,
+      marqueeTween = gsap.fromTo(trackRef.current,
         { x: 0 },
         {
           x: -loopDistance,
           duration: duration,
           ease: 'none',
-          repeat: -1
+          repeat: -1,
+          force3D: true
         }
       );
-    }
+      
+      marqueeTweenRef.current = marqueeTween;
+    };
+
+    // Run setup initially after a short timeout so DOM layout is finished
+    const timeoutId = setTimeout(setupMarquee, 100);
+
+    // Recreate on window resize
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        if (marqueeTween) marqueeTween.kill();
+        if (trackRef.current) {
+          gsap.set(trackRef.current, { clearProps: "x" });
+        }
+      } else {
+        setupMarquee();
+      }
+    };
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      if (marqueeTweenRef.current) {
-        marqueeTweenRef.current.kill();
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', handleResize);
+      if (marqueeTween) {
+        marqueeTween.kill();
       }
     };
   }, [completedEvents]);
@@ -116,7 +156,8 @@ export default function EventsPage() {
           },
           color: "#f97316", // Transition color to orange matching target eyebrow style!
           duration: 1.2,
-          ease: "power2.inOut"
+          ease: "power2.inOut",
+          force3D: true
         }, "move");
 
         tl.to(loaderOverlayRef.current, {
@@ -168,6 +209,7 @@ export default function EventsPage() {
         x: targetX,
         duration: 0.5,
         ease: "power2.out",
+        force3D: true,
         onComplete: () => {
           // Calculate the matching progress on the main tween playhead
           const newProgress = -targetX / loopDistance;

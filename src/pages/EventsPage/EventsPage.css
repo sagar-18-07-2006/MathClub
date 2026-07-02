@@ -310,6 +310,7 @@
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
+  will-change: transform, box-shadow;
 }
 
 .events-page-root .event-card-neo:hover {
@@ -534,8 +535,16 @@
 
 .events-page-root .slider-container {
   display: flex;
-  overflow: hidden;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
   padding: 20px 10px 40px 10px;
+}
+
+@media (min-width: 768px) {
+  .events-page-root .slider-container {
+    overflow: hidden;
+  }
 }
 
 .events-page-root .slider-track {
@@ -562,6 +571,7 @@
   scroll-snap-align: start; 
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
   cursor: pointer;
+  will-change: transform, box-shadow;
 }
 
 .events-page-root .slider-event-card:hover {
@@ -710,6 +720,7 @@
   z-index: 99999;
   overflow: hidden;
   pointer-events: none;
+  will-change: opacity;
 }
 
 .events-page-root .events-loader-text {
@@ -728,6 +739,7 @@
   display: inline-block;
   pointer-events: none;
   z-index: 100000;
+  will-change: transform, color, opacity;
 }
 
 
