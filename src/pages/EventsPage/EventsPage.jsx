@@ -58,34 +58,9 @@ export default function EventsPage() {
         // Force scroll to top on load to get correct bounding boxes
         window.scrollTo(0, 0);
 
-        const loaderRect = loaderTextRef.current.getBoundingClientRect();
-        const eyebrowRect = eyebrowRef.current.getBoundingClientRect();
-
-        // Calculate document-relative coordinates (which will be the viewport coordinates at scroll = 0)
-        const targetX = eyebrowRect.left + window.scrollX;
-        const targetY = eyebrowRect.top + window.scrollY;
-
-        // Center position in viewport initially
-        const startX = (window.innerWidth - loaderRect.width) / 2;
-        const startY = (window.innerHeight - loaderRect.height) / 2;
-
-        // Scale ratio to match target width
-        const scaleRatio = eyebrowRect.width / loaderRect.width;
-
-        // Set initial positions
-        gsap.set(loaderTextRef.current, {
-          position: "fixed",
-          left: 0,
-          top: 0,
-          x: startX,
-          y: startY,
-          scale: 1,
-          transformOrigin: "left top",
-          opacity: 0,
-          zIndex: 100000
-        });
-
+        // Hide target eyebrow element initially, set loader opacity to 0
         gsap.set(eyebrowRef.current, { opacity: 0 });
+        gsap.set(loaderTextRef.current, { opacity: 0 });
 
         // Build the autoplay timeline
         const tl = gsap.timeline({
@@ -100,7 +75,7 @@ export default function EventsPage() {
           }
         });
 
-        // 1. Fade in the massive text
+        // 1. Fade in the massive text (which starts centered via CSS flex/translate)
         tl.to(loaderTextRef.current, {
           opacity: 1,
           duration: 0.8,
@@ -110,11 +85,35 @@ export default function EventsPage() {
         // 2. Pause briefly
         tl.to({}, { duration: 0.4 });
 
-        // 3. Settle loader text into eyebrow position & fade overlay
+        // 3. Before moving, convert CSS translate centering to fixed x/y positioning to animate left-top corner cleanly
+        // At this point (1.2s into the page load), web fonts are guaranteed to be loaded and layout has settled.
+        tl.add(() => {
+          const loaderRect = loaderTextRef.current.getBoundingClientRect();
+          gsap.set(loaderTextRef.current, {
+            left: 0,
+            top: 0,
+            x: loaderRect.left,
+            y: loaderRect.top,
+            transform: "none",
+            transformOrigin: "left top"
+          });
+        });
+
+        // 4. Settle loader text into eyebrow position & fade overlay
         tl.to(loaderTextRef.current, {
-          x: targetX,
-          y: targetY,
-          scale: scaleRatio,
+          x: () => {
+            const rect = eyebrowRef.current.getBoundingClientRect();
+            return rect.left;
+          },
+          y: () => {
+            const rect = eyebrowRef.current.getBoundingClientRect();
+            return rect.top;
+          },
+          scale: () => {
+            const rect = eyebrowRef.current.getBoundingClientRect();
+            const currentLoaderWidth = loaderTextRef.current.getBoundingClientRect().width;
+            return rect.width / currentLoaderWidth;
+          },
           color: "#f97316", // Transition color to orange matching target eyebrow style!
           duration: 1.2,
           ease: "power2.inOut"

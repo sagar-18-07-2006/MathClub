@@ -713,6 +713,10 @@
 }
 
 .events-page-root .events-loader-text {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   font-family: 'JetBrains Mono', monospace;
   font-size: clamp(3rem, 12vw, 8rem);
   font-weight: 600;
@@ -723,6 +727,7 @@
   text-align: center;
   display: inline-block;
   pointer-events: none;
+  z-index: 100000;
 }
 
 
