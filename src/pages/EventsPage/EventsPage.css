@@ -31,15 +31,23 @@
   --eb-surface-container: #eeeeee;
   --eb-light-gold: #F5E6BE;
 
-  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCo62J0mD28eTj7pVpi2iKmggodZz2Ggdgyskh6F6X5UZHS8WquDlPnEYskoIKPg90YHQXW-rXotXAh3hGL77SsVqxk9E_9YVRZOU-Ve0S5gfqCUH6imCaiGptRHkOE2cQM7xbDCi3rWHUyj5mP7taXXc7My66evWh5mku5IiWDt-sBzTHqVSbvjNPcLdYOqJcES-2EiNB1wBqQ1eZUx0sfyacdluTTmRsUrEs-lweAjnO95Iw_NLhWhGSU244EgsKI93vmvTwBYtgp');
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
   min-height: 100vh;
   font-family: 'Inter', sans-serif;
   color: var(--eb-light-gold);
   position: relative;
+}
+
+.events-page-root::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCo62J0mD28eTj7pVpi2iKmggodZz2Ggdgyskh6F6X5UZHS8WquDlPnEYskoIKPg90YHQXW-rXotXAh3hGL77SsVqxk9E_9YVRZOU-Ve0S5gfqCUH6imCaiGptRHkOE2cQM7xbDCi3rWHUyj5mP7taXXc7My66evWh5mku5IiWDt-sBzTHqVSbvjNPcLdYOqJcES-2EiNB1wBqQ1eZUx0sfyacdluTTmRsUrEs-lweAjnO95Iw_NLhWhGSU244EgsKI93vmvTwBYtgp');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  z-index: -1;
+  pointer-events: none;
+  will-change: transform;
 }
 
 /* ── Typography Scoping ────────────────────────────────────────── */
@@ -92,6 +100,8 @@
   -webkit-backdrop-filter: blur(4px);
   min-height: 100vh;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .events-page-root .halftone-overlay {
@@ -398,7 +408,7 @@
 }
 
 .events-page-root .event-card-neo__desc {
-  color: var(--eb-on-secondary-container);
+  color: var(--eb-on-surface);
   margin-bottom: 2rem;
 }
 
@@ -604,16 +614,14 @@
   position: absolute;
   top: 16px;
   right: 16px;
-  background: rgba(10, 25, 47, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: var(--eb-primary-container);
+  background: var(--eb-secondary-container); /* Solid yellow */
+  color: #000; /* High contrast black text */
   padding: 6px 16px;
   border-radius: 20px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
   font-weight: 600;
-  border: 2px solid var(--eb-primary-container);
+  border: 2px solid #000; /* Solid black border */
   z-index: 2;
 }
 
@@ -732,6 +740,198 @@
   pointer-events: none;
   z-index: 100000;
   will-change: transform, color, opacity;
+}
+
+/* ── Liquid Glass Button ───────────────────────────────────────── */
+.events-page-root .view-more-btn-glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  color: var(--eb-light-gold);
+  padding: 1rem 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px; /* curved edges */
+  text-transform: uppercase;
+  font-family: 'Archivo Narrow', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.events-page-root .view-more-btn-glass:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--eb-primary-container);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px 0 rgba(249, 115, 22, 0.25);
+}
+
+.events-page-root .view-more-btn-glass:active {
+  transform: translateY(0);
+}
+
+/* ── Liquid Glass Card Grid ───────────────────────────────────── */
+.events-page-root .events-grid-glass {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .events-page-root .events-grid-glass {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .events-page-root .events-grid-glass {
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 columns for smaller cards */
+  }
+}
+
+/* ── Liquid Glass Card ─────────────────────────────────────────── */
+.events-page-root .event-card-glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px; /* curved edges */
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  will-change: transform, box-shadow;
+}
+
+.events-page-root .event-card-glass:hover {
+  transform: translateY(-8px);
+  border-color: rgba(249, 115, 22, 0.4);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4), 0 0 20px rgba(249, 115, 22, 0.15);
+}
+
+.events-page-root .event-card-glass__image-wrap {
+  position: relative;
+  height: 12rem; /* reduced height */
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: #000;
+}
+
+.events-page-root .event-card-glass__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%); /* black and white by default */
+  opacity: 0.8;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease, opacity 0.4s ease;
+}
+
+.events-page-root .event-card-glass:hover .event-card-glass__image {
+  transform: scale(1.05);
+  filter: grayscale(0%); /* full color on hover */
+  opacity: 1;
+}
+
+.events-page-root .event-card-glass__badge-left {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: #000; /* Solid black */
+  color: #fff; /* Solid white text */
+  padding: 0.4rem 1rem;
+  border: 1px solid #fff; /* Solid white border */
+  border-radius: 20px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  z-index: 2;
+}
+
+.events-page-root .event-card-glass__badge-right-wrap {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.events-page-root .event-card-glass__badge-right {
+  background-color: var(--eb-secondary-container); /* Solid yellow */
+  color: #000; /* Solid black text */
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #000; /* Solid black border */
+  border-radius: 20px;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.events-page-root .event-card-glass__body {
+  padding: 1.5rem; /* reduced padding */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.events-page-root .event-card-glass__date {
+  color: var(--eb-secondary-container);
+  margin-bottom: 0.5rem;
+}
+
+.events-page-root .event-card-glass__title {
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+  font-size: 18px; /* reduced font size */
+  font-family: 'Archivo Narrow', sans-serif;
+  font-weight: 800;
+}
+
+.events-page-root .event-card-glass__desc {
+  color: var(--eb-surface-variant);
+  margin-bottom: 1.25rem; /* reduced space */
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.events-page-root .event-card-glass__action-wrap {
+  margin-top: auto;
+}
+
+/* ── Liquid Glass Card Button ──────────────────────────────────── */
+.events-page-root .event-card-glass__button {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--eb-light-gold);
+  padding: 0.7rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px; /* curved edges */
+  font-family: 'Archivo Narrow', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.events-page-root .event-card-glass__button:hover {
+  background: var(--eb-primary-container);
+  color: #000;
+  border-color: var(--eb-primary-container);
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
 }
 
 
