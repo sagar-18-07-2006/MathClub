@@ -5,16 +5,16 @@ export const stats = [
 ]
 
 export const completedEvents = [
-  { id: 1, title: 'Mathematical Problem Solving Orientation', date: 'Completed Event', description: 'An introductory session to build interest in proof writing, logical thinking, and weekly problem solving.', image: '/assets/events/placeholder.svg', tag: 'Technical Session' },
-  { id: 2, title: 'Number Theory Circle', date: 'Completed Event', description: 'A focused discussion on modular arithmetic, divisibility, primes, and contest-style approaches.', image: '/assets/events/placeholder.svg', tag: 'Technical Session' },
-  { id: 3, title: 'Mathematics Day Celebration', date: 'Completed Event', description: 'A celebration of mathematical culture through talks, activities, quizzes, and student participation.', image: '/assets/events/placeholder.svg', tag: 'Math Day' },
-  { id: 4, title: 'Weekly Problem Discussion Meet', date: 'Completed Event', description: 'A collaborative session where students discussed multiple solution paths and mathematical reasoning.', image: '/assets/events/placeholder.svg', tag: 'Discussion' },
-  { id: 5, title: 'Logic and Puzzles Evening', date: 'Completed Event', description: 'An engaging activity-based event using puzzles to promote structured thinking and creative proofs.', image: '/assets/events/placeholder.svg', tag: 'Celebration' },
+  { id: 1, title: 'Hands on Session on Scientific Calculator', date: '08.10.2025', description: 'An interactive hands-on workshop focused on mastering advanced functions, equations, and statistical capabilities of scientific calculators.', image: '/assets/events/calculator_thumbnail.webp', tag: 'WORKSHOP', extraTags: ['HANDS-ON'] },
+  { id: 2, title: 'Rapid Fire and Treasure Hunt', date: '09.11.2025', description: 'A fast-paced competition combining quick mathematical reasoning with an exciting campus-wide scavenger hunt.', image: '/assets/events/treasure_hunt_thumbnail.webp', tag: 'COMPETITION', extraTags: ['GAME'] },
+  { id: 3, title: 'Technical Session On Advance MS Excel', date: '05.02.2026', description: 'Day 1 of the 2-Day Technical Workshop covering complex formulas, data analysis, pivoting, and financial modeling tools in Microsoft Excel.', image: '/assets/events/excel_thumbnail.webp', tag: 'TECHNICAL SESSION', extraTags: ['WORKSHOP'] },
+  { id: 4, title: 'Technical Session On Search Algorithms', date: '06.02.2026', description: 'Day 2 of the 2-Day Technical Workshop exploring binary search, DFS, BFS, and Dijkstra\'s algorithm optimization from a mathematical perspective.', image: '/assets/events/search_algorithms_thumbnail.webp', tag: 'TECHNICAL SESSION', extraTags: ['ALGORITHMS'] },
+  { id: 5, title: 'Pi-Day Celebration', date: '14.03.2026', description: 'Flagship celebration featuring interactive math games, Pi recitation challenge, pie-cutting ceremony, and trivia events.', image: '/assets/events/piday_thumbnail.webp', tag: 'FLAGSHIP', extraTags: ['MATH DAY'] },
 ]
 
 export const upcomingEvents = [
-  { id: 6, title: 'Technical Session on Problem Solving', date: 'Upcoming', description: 'A structured technical session focused on proof techniques, problem decomposition, and contest strategy.', image: '/assets/events/placeholder.svg', tag: 'Technical Session' },
-  { id: 7, title: 'Mathematics Day Celebration', date: 'Upcoming', description: 'A campus celebration dedicated to mathematics through games, talks, quizzes, and student showcases.', image: '/assets/events/placeholder.svg', tag: 'Math Day' },
+  { id: 6, title: 'Technical Session on Problem Solving', date: '21.03.2026', description: 'A structured technical session focused on proof techniques, problem decomposition, and contest strategy. Perfect for those aiming for high-rank competitive math performance.', image: '/assets/events/coming_soon.webp', tag: 'TECHNICAL SESSION', extraTags: ['FOR NERDS'] },
+  { id: 7, title: 'Mathematics Day Celebration', date: '14.03.2026', description: 'A campus celebration dedicated to mathematics through games, talks, quizzes, and student showcases. Experience the fun side of the most abstract science.', image: '/assets/events/coming_soon.webp', tag: 'MATH DAY', extraTags: ['BRAIN-ROTATING', 'FOR NERDS'] },
 ]
 
 export const teamMembers = [
