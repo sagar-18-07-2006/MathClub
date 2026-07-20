@@ -19,7 +19,7 @@ export default function App() {
         <Route path="/events" element={<EventsPage />} />
         <Route path="/problems" element={<ProblemsPage />} />
         <Route path="/weekly-problems" element={<Navigate to="/problems" replace />} />
-       
+        <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/team" element={<TeamPage />} />
         <Route path="/team/:teamSlug" element={<TeamPage />} />
