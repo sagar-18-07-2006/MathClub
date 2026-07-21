@@ -10,8 +10,8 @@ const navColumns = [
       { label: 'About',            href: '#about' },
       { label: 'Events',           href: '#events' },
       { label: 'Weekly Questions', href: '#questions' },
-      { label: 'Solvers',          href: '#solvers' },
-      { label: 'Gallery',          href: '#gallery' },
+      // { label: 'Solvers',          href: '#solvers' },
+      // { label: 'Gallery',          href: '#gallery' },
     ],
   },
   {
