@@ -8,7 +8,7 @@ const navItems = [
   { label: 'Home', to: '/' },
   { label: 'Events', to: '/events' },
   { label: 'Problems', to: '/problems' },
-  { label: 'Leaderboard', to: '/leaderboard' },
+  
   { label: 'Blog', to: '/blog' },
   { label: 'Team', to: '/team' },
   { label: 'Developers', to: '/developers' },
