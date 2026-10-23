@@ -20,7 +20,7 @@ export default function HomePage() {
       <TeamSection />
       {/* <ProblemsSection compact /> */}
       {/* <LeaderboardSection compact /> */}
-      <Gallery />
+      {/* <Gallery /> */}
     </main>
   )
 }
